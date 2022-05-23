@@ -18,7 +18,6 @@ export default function App(){
                 <Route path="/assentos/:idSessao" element={<Seats/>}/>
                 <Route path="/sucesso" element={<Ticket/>}/>
             </Routes>
-            <Footer/>
         </BrowserRouter>
     )
 }

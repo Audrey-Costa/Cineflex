@@ -41,5 +41,10 @@ const Div = styled.div`
         display: flex;
 
     }
+
+    div{
+    width: 85px;
+    height: 45px;
+    }
     
 `
