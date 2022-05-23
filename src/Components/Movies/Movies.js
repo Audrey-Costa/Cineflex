@@ -19,7 +19,7 @@ export default function Movies(){
         <>
             <SubHeader><Div><p>Selecione o filme</p></Div></SubHeader>
             <Container>
-                {items.map(item => <Movie key = {item.id} src={item.posterURL} id={item.id}/>)}
+                {items.map(item => <Movie key = {item.id} src={item.posterURL} idFilm={item.id}/>)}
             </Container>
         </>
     )

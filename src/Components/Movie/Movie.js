@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 
-export default function Movie({src, id}){
+export default function Movie({src, idFilm}){
     return (
         <Div>
-            <Link to={`/sessoes/${id}`}><img src={src} alt="filme" /></Link>
+            <Link to={`/sessoes/${idFilm}`}><img src={src} alt="filme" /></Link>
         </Div>
     )
 }
