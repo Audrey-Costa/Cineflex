@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import "../../Assets/reset.css"
+import "../../Assets/style.css"
 import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import Movies from "../Movies/Movies"
@@ -12,9 +14,9 @@ export default function App(){
             <Header/>
             <Routes>
                 <Route path="/" element={<Movies/>}/>
-                <Route path="/" element={<Sessions/>}/>
-                <Route path="/" element={<Seats/>}/>
-                <Route path="/" element={<Ticket/>}/>
+                <Route path="/sessoes/:idFilme" element={<Sessions/>}/>
+                <Route path="/assentos/:idSessao" element={<Seats/>}/>
+                <Route path="/sucesso" element={<Ticket/>}/>
             </Routes>
             <Footer/>
         </BrowserRouter>
