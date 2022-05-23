@@ -8,11 +8,13 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Footer from "../Footer/Footer";
 
-export default function Seats(){
+export default function Seats(props){
     const { idSession } = useParams();
-    const [session, setSession] = useState({})
-    const [ready, setReady] = useState(false)
+    const [session, setSession] = useState({});
+    const [ready, setReady] = useState(false);
     const [selected, setSelected] = useState([]);
+    const [nome, setNome] = useState("");
+    const [cpf, setCpf] = useState("");
 
     useEffect(()=>{
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/87/seats`)
@@ -29,7 +31,6 @@ export default function Seats(){
                 setSelected([...selected, index]);
             }
         }
-        console.log(selected)
     }
 
     return (
@@ -62,20 +63,23 @@ export default function Seats(){
                     <p>Indisponível</p>
                 </div>
             </Legend>
-            <Form>
+            title, date, time, selected, id, nome, cpf
+            {ready ? <Form onSubmit={props.data(session.name, session.day.date, session.name, selected, selected + 1, nome, cpf)}>
                 {selected.length === 0 ?
                 <>
-                     <Input id={"nome"} text={"Nome do comprador:"} placeholder={"Digite seu nome..."} pattern={"[A-Za-z' ']+"} />
-                        <Input id={"CPF"} text={"CPF do comprador:"} placeholder={"Digite seu CPF..."}  pattern={"[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}"}  required/>
+                    <Input id={"nome"} text={"Nome do comprador:"} placeholder={"Digite seu nome..."} pattern={"[A-Za-z' ']+"} onChange={e => setNome(e.target.value)} required/>
+                    <Input id={"CPF"} text={"CPF do comprador:"} placeholder={"Digite seu CPF..."}  pattern={"[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}"} onChange={e => setCpf(e.target.value)} required/>
                 </> 
                 : selected.map((element, index)=>
                     <div key={index}>
-                        <Input id={"nome"} text={"Nome do comprador:"} placeholder={"Digite seu nome..."} pattern={"[A-Za-z' ']+"} />
-                        <Input id={"CPF"} text={"CPF do comprador:"} placeholder={"Digite seu CPF..."}  pattern={"[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}"}  required/>
+                        <Input id={"nome"} value={nome} text={"Nome do comprador:"} placeholder={"Digite seu nome..."} pattern={"[A-Za-z' ']+"} onChange={e => setNome(e.target.value)} required/>
+                        <Input id={"CPF"} value={cpf} text={"CPF do comprador:"} placeholder={"Digite seu CPF..."}  pattern={"[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}"} onChange={e => setCpf(e.target.value)} required/>
                     </div>
                     )}
-                <Button><button type={"submit"} >Reservar assento(s)</button></Button>
-            </Form>
+                <Link style={{textDecoration: "none", color: "black"}} to={`/sucesso`}>
+                    <Button><button type={"submit"} >Reservar assento(s)</button></Button>
+                </Link>
+            </Form> : ""}
             {ready ? <Footer>  
                 <img src={session.movie.posterURL} alt="Filme"/> 
                 <div>
@@ -150,7 +154,7 @@ const Form = styled.form`
     div button{
         width: 225px;
         border: none;
-        background-color: #E8833A;;
+        background-color: #E8833A;
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
